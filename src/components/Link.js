@@ -1,5 +1,6 @@
 import React from 'react';
 
+// make functional component maybe
 export default class Link extends React.Component {
   render() {
     return (
