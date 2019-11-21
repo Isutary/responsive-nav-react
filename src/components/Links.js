@@ -13,25 +13,41 @@ export default class Links extends React.Component {
     }
     this.createLinks = this.createLinks.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
   createLinks() {
     let linksArray = [];
     let links = this.state[this.state.lang];
     for (let i=0; i<links.length; i++) {
-      linksArray.push(<Link key={i} link={links[i]} />)
+      linksArray.push(<Link key={i} link={links[i].toUpperCase()} />)
     }
     return linksArray;
   }
-  handleChange(option) {
+  handleChange(event) {
     this.setState({
-      lang: (option.target.value)
+      lang: (event.target.value)
     });
+  }
+  handleClick() {
+    let dropdown = document.getElementById("dropdown");
+    if (dropdown.style.display === "block") {
+      dropdown.style.display = "none";
+    } 
+    else {
+      dropdown.style.display = "block";
+    }
   }
   render() {
     return (
       <nav className="nav-wrapper">
         <div className="links-wrapper">
           {this.createLinks()}
+        </div>
+        <div onClick={this.handleClick} className="dropdown-wrapper">
+          <i className="fas fa-ellipsis-h"></i>
+          <div id="dropdown" className="dropdown">
+            {this.createLinks()}
+          </div>
         </div>
         <select className="lang-select" onChange={this.handleChange}>
           <option value="en"> English </option>
